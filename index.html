@@ -298,27 +298,6 @@
   }
 
   /* ──────────── WISH BUBBLES ──────────── */
-  #openBtn{
-    padding:20px 50px;
-    font-size:28px;
-    border:none;
-    border-radius:20px;
-    cursor:pointer;
-    background:linear-gradient(135deg,#ff69b4,#d291ff);
-    color:white;
-    font-weight:bold;
-    box-shadow:0 0 25px rgba(255,105,180,.6);
-    transition:.3s;
-}
-
-#openBtn:hover{
-    transform:scale(1.08);
-}
-
-.open-container{
-    text-align:center;
-    padding:80px 0;
-}
   .wishes-grid {
     max-width: 900px;
     margin: 0 auto;
@@ -505,7 +484,7 @@
         <div class="icon">📷</div>
         <p>Place your photos in an <strong>images/</strong> folder<br>as photo1.jpg … photo5.jpg</p>
       </div>
-      <img src="photo1.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 1">
+      <img src="images/photo1.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 1">
       <img src="images/photo2.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 2">
       <img src="images/photo3.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 3">
       <img src="images/photo4.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 4">
@@ -526,13 +505,7 @@
 <!-- ═══ WISHES ═══ -->
 <section class="section">
   <h2 class="section-title">💫 With All My Heart 💫</h2>
-  <div class="open-container">
-    <button id="openBtn" onclick="openWishes()">
-        🎁 Bangaram, Open Me ❤️
-    </button>
-</div>
-
-<div class="wishes-grid" id="wishSection" style="display:none;">
+  <div class="wishes-grid">
     <div class="wish-bubble">
       <div class="wish-icon">🌸</div>
       <div class="wish-title">Endless Happiness</div>
@@ -820,16 +793,6 @@ function toggleMusic() {
   }
 }
 </script>
-<script>
 
-function openWishes(){
-
-    document.getElementById("openBtn").style.display="none";
-
-    document.getElementById("wishSection").style.display="grid";
-
-}
-
-</script>
 </body>
 </html>
