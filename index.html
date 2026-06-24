@@ -297,33 +297,90 @@
     white-space: pre-line;
   }
 
-  /* ──────────── WISH BUBBLES ──────────── */
+  /* ──────────── WISH BOXES ──────────── */
+  #openBtn{
+    padding:20px 50px;
+    font-size:28px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff69b4,#d291ff);
+    color:white;
+    font-weight:bold;
+    box-shadow:0 0 25px rgba(255,105,180,.6);
+    transition:.3s;
+  }
+
+  #openBtn:hover{
+      transform:scale(1.08);
+  }
+
+  .open-container{
+      text-align:center;
+      padding:80px 0;
+  }
   .wishes-grid {
     max-width: 900px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
   }
 
-  .wish-bubble {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,107,157,0.2);
+  @media (max-width: 600px) {
+    .wishes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .wish-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,107,157,0.22);
     border-radius: 20px;
-    padding: 28px 24px;
-    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.25s, background 0.25s;
+    user-select: none;
     backdrop-filter: blur(10px);
-    transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .wish-bubble:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(255,107,157,0.2);
+  .wish-box:hover { border-color: rgba(255,107,157,0.5); }
+
+  .wish-box.active {
+    border-color: #ff6b9d;
+    background: rgba(255,107,157,0.15);
   }
 
-  .wish-icon { font-size: 2.8rem; margin-bottom: 12px; }
-  .wish-title { font-size: 1.1rem; font-weight: 600; color: #ffc0d5; margin-bottom: 8px; }
-  .wish-desc { font-size: 0.9rem; color: rgba(255,200,220,0.65); line-height: 1.65; }
+  .box-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 26px 16px 20px;
+    text-align: center;
+  }
+
+  .wish-icon { font-size: 2.6rem; line-height: 1; }
+  .wish-title { font-size: 1rem; font-weight: 600; color: #ffc0d5; line-height: 1.3; }
+  .wish-box.active .wish-title { color: #ffd1e8; }
+
+  .wish-content {
+    display: none;
+    padding: 0 18px 20px;
+    font-size: 0.88rem;
+    color: rgba(255,200,220,0.75);
+    line-height: 1.7;
+    text-align: center;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .wish-box.active .wish-content { display: block; }
+
+  .wishes-hint {
+    text-align: center;
+    color: rgba(255,200,220,0.45);
+    font-size: 0.82rem;
+    margin-bottom: 22px;
+    font-style: italic;
+  }
 
   /* ──────────── SECRET LETTER ──────────── */
   .letter-section {
@@ -484,7 +541,7 @@
         <div class="icon">📷</div>
         <p>Place your photos in an <strong>images/</strong> folder<br>as photo1.jpg … photo5.jpg</p>
       </div>
-      <img src="images/photo1.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 1">
+      <img src="photo1.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 1">
       <img src="images/photo2.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 2">
       <img src="images/photo3.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 3">
       <img src="images/photo4.jpg" class="slide" onerror="this.style.display='none'" alt="Memory 4">
@@ -505,38 +562,54 @@
 <!-- ═══ WISHES ═══ -->
 <section class="section">
   <h2 class="section-title">💫 With All My Heart 💫</h2>
-  <div class="wishes-grid">
-    <div class="wish-bubble">
-      <div class="wish-icon">🌸</div>
-      <div class="wish-title">Endless Happiness</div>
-      <div class="wish-desc">May every morning greet you with a reason to smile, and every night with a heart full of gratitude.</div>
-    </div>
-    <div class="wish-bubble">
-      <div class="wish-icon">⭐</div>
-      <div class="wish-title">Bright Dreams</div>
-      <div class="wish-desc">May every dream you've ever dared to dream come true this year and beyond.</div>
-    </div>
-    <div class="wish-bubble">
-      <div class="wish-icon">💪</div>
-      <div class="wish-title">Good Health</div>
-      <div class="wish-desc">May your body be strong, your mind be clear, and your spirit always resilient.</div>
-    </div>
-    <div class="wish-bubble">
-      <div class="wish-icon">🤍</div>
-      <div class="wish-title">Beautiful Bonds</div>
-      <div class="wish-desc">May the people you love always love you back, and may your life be rich with warmth.</div>
-    </div>
-    <div class="wish-bubble">
-      <div class="wish-icon">🌺</div>
-      <div class="wish-title">New Adventures</div>
-      <div class="wish-desc">May this year open doors you never expected and surprise you in the most wonderful ways.</div>
-    </div>
-    <div class="wish-bubble">
-      <div class="wish-icon">🎶</div>
-      <div class="wish-title">Joyful Moments</div>
-      <div class="wish-desc">May ordinary days feel extraordinary when shared with the right people by your side.</div>
-    </div>
+  <div class="open-container">
+    <button id="openBtn" onclick="openWishes()">
+        🎁 Bangaram, Open Me ❤️
+    </button>
   </div>
+
+  <p class="wishes-hint" id="wishHint" style="display:none;">
+    Click any box to open it
+  </p>
+
+  <div class="wishes-grid" id="wishes-grid" style="display:none;"></div>
+
+  <script>
+  (function(){
+    const wishes = [
+      { icon:"🌸", title:"Endless Happiness",  desc:"May every morning greet you with a reason to smile, and every night with a heart full of gratitude." },
+      { icon:"⭐", title:"Bright Dreams",       desc:"May every dream you've ever dared to dream come true this year and beyond." },
+      { icon:"💪", title:"Good Health",         desc:"May your body be strong, your mind be clear, and your spirit always resilient." },
+      { icon:"🤍", title:"Beautiful Bonds",     desc:"May the people you love always love you back, and may your life be rich with warmth." },
+      { icon:"🌺", title:"New Adventures",      desc:"May this year open doors you never expected and surprise you in the most wonderful ways." },
+      { icon:"🎶", title:"Joyful Moments",      desc:"May ordinary days feel extraordinary when shared with the right people by your side." },
+    ];
+    const grid = document.getElementById('wishes-grid');
+    let activeIdx = null;
+    wishes.forEach((w, i) => {
+      const box = document.createElement('div');
+      box.className = 'wish-box';
+      box.innerHTML = `
+        <div class="box-header">
+          <div class="wish-icon">${w.icon}</div>
+          <div class="wish-title">${w.title}</div>
+        </div>
+        <div class="wish-content">${w.desc}</div>
+      `;
+      box.addEventListener('click', () => {
+        if (activeIdx === i) {
+          box.classList.remove('active');
+          activeIdx = null;
+        } else {
+          grid.querySelectorAll('.wish-box').forEach(b => b.classList.remove('active'));
+          box.classList.add('active');
+          activeIdx = i;
+        }
+      });
+      grid.appendChild(box);
+    });
+  })();
+  </script>
 </section>
 
 <!-- ═══ MESSAGE ═══ -->
@@ -566,7 +639,7 @@ You deserve every beautiful thing life has to offer. ❤️</p>
     <h2 class="section-title">💌 There's More…</h2>
 
     <button class="open-btn" onclick="revealLetter()">
-      💌 Open Secret Letter
+      💌 Open My Heart
     </button>
 
     <div id="secret-letter">
@@ -792,6 +865,15 @@ function toggleMusic() {
     musicPlaying = true;
   }
 }
+window.openWishes = function(){
+
+    document.getElementById('openBtn').style.display = 'none';
+
+    document.getElementById('wishHint').style.display = 'block';
+
+    document.getElementById('wishes-grid').style.display = 'grid';
+
+};
 </script>
 
 </body>
